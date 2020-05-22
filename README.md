@@ -7,3 +7,4 @@ features (?):
 - songs ranked
 - longest listening sessions
 - longest listening sessions but like over the whole day?
+- artists ranked

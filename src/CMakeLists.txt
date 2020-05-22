@@ -12,3 +12,5 @@ file(GLOB SOURCE_LIST CONFIGURE_DEPENDS
 add_library(spotify song_listens.cpp)
 
 target_include_directories(spotify PUBLIC ../include)
+
+target_link_libraries(spotify PRIVATE nlohmann_json)
