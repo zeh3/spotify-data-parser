@@ -3,21 +3,26 @@ project(spotify)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(spotify apps/main.cpp)
-
 # The library code is here.
 add_subdirectory(src)
 
 # The executable code is here.
 add_subdirectory(apps)
 
+add_subdirectory(tests)
+
 # FetchContent added in CMake 3.11, downloads during the configure step
 include(FetchContent)
 
-#[[# FetchContent_MakeAvailable was not added until CMake 3.14
-if(${CMAKE_VERSION} VERSION_LESS 3.14)
-    include(cmake/add_FetchContent_MakeAvailable.cmake)
-endif()]]
+install(TARGETS main DESTINATION bin)
+
+
+# Testing library. Header-only.
+FetchContent_Declare(
+        catch2
+        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+        GIT_TAG        v2.11.1
+)
 
 # JSON Library. Header-only.
 FetchContent_Declare(
@@ -32,4 +37,13 @@ if(NOT nlohmann_json_POPULATED)
     FetchContent_Populate(nlohmann_json)
     # add_library(nlohmann_json INTERFACE src/song_listens.cpp include/spotify/song_listens.h)
     # target_include_directories(nlohmann_json INTERFACE ${nlohmann_json_SOURCE_DIR}/single_include)
+endif()
+
+# Adds catch2 library.
+FetchContent_GetProperties(catch2)
+if(NOT catch2_POPULATED)
+    FetchContent_Populate(catch2)
+    # This is overkill since we only need a single file. Though it is a clean solution.
+    add_library(catch2 INTERFACE)
+    target_include_directories(catch2 INTERFACE ${catch2_SOURCE_DIR}/single_include)
 endif()
