@@ -17,12 +17,15 @@ namespace spotify {
 struct Song {
   string name;
   string artist;
+  Song(string set_name, string set_artist);
+  Song();
 };
 
 struct SongListen {
   Song song;
   long milliseconds_listened;
   string time;
+  SongListen(Song set_song, long set_ms, string set_time);
 };
 
 struct SongTotalListens {
