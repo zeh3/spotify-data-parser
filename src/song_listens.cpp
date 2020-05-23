@@ -15,4 +15,9 @@ vector<SongTotalListens> SortSongs(const vector<SongListen> &song_listens) {
   return vec;
 }
 
+std::ostream& operator<<(std::ostream& os, const SongTotalListens& s)
+{
+  return os << s.song.name << " by " << s.song.artist << ": " << s.total_milliseconds_listened << '\n';
+}
+
 }
