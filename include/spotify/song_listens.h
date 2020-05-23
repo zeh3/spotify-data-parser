@@ -35,7 +35,7 @@ struct ArtistTotalListens {
   long total_milliseconds_listened;
 };
 
-vector<SongListen> ParseJson(const vector<json>& songs);
+vector<SongListen> ParseJson(const vector<vector<json> >& songs);
 
 vector<SongTotalListens> SortSongs(const vector<SongListen>& song_listens);
 
