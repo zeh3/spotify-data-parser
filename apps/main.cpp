@@ -30,7 +30,7 @@ int main() {
     json json_songs_array;
     try {
       json_stream >> json_songs_array;
-    } catch (exception e) {
+    } catch (exception& e) {
       cerr << "error parsing json" << endl;
     }
     vector<json> json_vector = json_songs_array.get<std::vector<json> >();
@@ -42,7 +42,7 @@ int main() {
   sorted_songs = SortSongs(ParseJson(songs));
   ofstream myfile;
   myfile.open(top_songs_by_play_time_path);
-  for (SongTotalListens song : sorted_songs) {
+  for (const SongTotalListens& song : sorted_songs) {
     myfile << song << endl;
   }
   
