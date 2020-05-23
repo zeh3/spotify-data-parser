@@ -32,6 +32,7 @@ int main() {
       json_stream >> json_songs_array;
     } catch (exception& e) {
       cerr << "error parsing json" << endl;
+      return EXIT_FAILURE;
     }
     vector<json> json_vector = json_songs_array.get<std::vector<json> >();
     // code for appending vectors taken from:
@@ -46,5 +47,5 @@ int main() {
     myfile << song << endl;
   }
   
-  return 0;
+  return EXIT_SUCCESS;
 }
