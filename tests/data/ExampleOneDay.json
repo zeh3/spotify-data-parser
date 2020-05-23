@@ -1,0 +1,68 @@
+[
+  {
+    "endTime" : "1995-02-19 1:15",
+    "artistName" : "example artist",
+    "trackName" : "bleh",
+    "msPlayed" : 1000
+  },
+  {
+    "endTime" : "1995-02-19 2:15",
+    "artistName" : "example artist",
+    "trackName" : "blah",
+    "msPlayed" : 700
+  },
+  {
+    "endTime" : "1995-02-19 3:15",
+    "artistName" : "me",
+    "trackName" : "I'm uncreative",
+    "msPlayed" : 1000
+  },
+  {
+    "endTime" : "1995-02-19 4:15",
+    "artistName" : "me",
+    "trackName" : "I'm sorry",
+    "msPlayed" : 4000
+  },
+  {
+    "endTime" : "1995-02-19 5:15",
+    "artistName" : "example artist",
+    "trackName" : "foo",
+    "msPlayed" : 600
+  },
+  {
+    "endTime" : "1995-02-19 6:15",
+    "artistName" : "you",
+    "trackName" : "I tried to be funny",
+    "msPlayed" : 300
+  },
+  {
+    "endTime" : "1995-02-19 7:15",
+    "artistName" : "example artist",
+    "trackName" : "foo",
+    "msPlayed" : 100
+  },
+  {
+    "endTime" : "1995-02-19 8:15",
+    "artistName" : "example artist",
+    "trackName" : "foo",
+    "msPlayed" : 1000
+  },
+  {
+    "endTime" : "1995-02-19 9:15",
+    "artistName" : "example artist",
+    "trackName" : "bleh",
+    "msPlayed" : 3000
+  },
+  {
+    "endTime" : "1995-02-19 10:15",
+    "artistName" : "me",
+    "trackName" : "I'm sorry",
+    "msPlayed" : 200
+  },
+  {
+    "endTime" : "1995-02-19 11:15",
+    "artistName" : "you",
+    "trackName" : "I tried to be funny",
+    "msPlayed" : 5
+  }
+]
