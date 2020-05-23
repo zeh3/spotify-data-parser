@@ -3,4 +3,8 @@
     
 -5/22/2020\
     -added project to github\
-    -more linking -_-
+    -more linking -_-\
+    -i just feel the need to apologize for having the audacity to think this project was important enough or I was focused enough for a DEVELOPMENT.md; again I'm really sorry
+    
+-5/23/2020\
+    -finish main.cpp
