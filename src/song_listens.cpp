@@ -27,6 +27,10 @@ std::ostream& operator<<(std::ostream& os, const SongTotalListens& s)
   return os << s.song.name << " by " << s.song.artist << ": " << s.total_milliseconds_listened;
 }
 
+std::ostream& operator<<(std::ostream& os, const SongListen& s) {
+  return os << s.song.name << " by " << s.song.artist << " at " << s.time << ": " << s.milliseconds_listened;
+}
+
 SongListen::SongListen(Song set_song, long set_ms, string set_time) {
   song = std::move(set_song);
   milliseconds_listened = set_ms;
@@ -36,6 +40,12 @@ SongListen::SongListen(Song set_song, long set_ms, string set_time) {
 Song::Song(string set_name, string set_artist) {
   name = std::move(set_name);
   artist = std::move(set_artist);
+}
+
+SongListen GetLongestSongListen(const vector<SongListen>& song_listens) {
+  SongListen longest = song_listens[0];
+  
+  return longest;
 }
 
 Song::Song() {

@@ -44,6 +44,11 @@ vector<SongTotalListens> SortSongs(const vector<SongListen>& song_listens);
 
 std::ostream& operator<<(std::ostream& os, const SongTotalListens& s);
 
+std::ostream& operator<<(std::ostream& os, const SongListen& s);
+
+// errors if song_listens is empty
+SongListen GetLongestSongListen(const vector<SongListen>& song_listens);
+
 }
 
 
