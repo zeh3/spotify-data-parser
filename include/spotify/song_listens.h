@@ -26,11 +26,13 @@ struct SongListen {
   long milliseconds_listened;
   string time;
   SongListen(Song set_song, long set_ms, string set_time);
+  bool operator > (const SongListen& song_listen) const;
 };
 
 struct SongTotalListens {
   Song song;
   long total_milliseconds_listened;
+  bool operator > (const SongTotalListens& song_total_listens) const;
 };
 
 struct ArtistTotalListens {

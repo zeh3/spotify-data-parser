@@ -37,6 +37,10 @@ SongListen::SongListen(Song set_song, long set_ms, string set_time) {
   time = std::move(set_time);
 }
 
+bool SongListen::operator>(const SongListen &song_listen) const {
+  return (milliseconds_listened > song_listen.milliseconds_listened);
+}
+
 Song::Song(string set_name, string set_artist) {
   name = std::move(set_name);
   artist = std::move(set_artist);
@@ -50,5 +54,9 @@ SongListen GetLongestSongListen(const vector<SongListen>& song_listens) {
 
 Song::Song() {
   //bc the SongListen constructor didn't like that Song didn't have a default constructor
+}
+
+bool SongTotalListens::operator>(const SongTotalListens &song_total_listens) const {
+  return (total_milliseconds_listened > song_total_listens.total_milliseconds_listened);
 }
 }
