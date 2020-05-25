@@ -3,6 +3,6 @@
 add_executable(test-spotify test_spotify.cpp)
 
 # Should be linked to the main library, as well as the Catch2 testing library
-target_link_libraries(test-spotify PRIVATE spotify catch2)
+target_link_libraries(test-spotify PRIVATE spotify catch2 nlohmann_json)
 
 target_include_directories(spotify PUBLIC ../include)
