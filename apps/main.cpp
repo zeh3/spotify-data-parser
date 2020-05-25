@@ -16,9 +16,10 @@ using std::ofstream;
 vector<string> file_paths = {"MyData/StreamingHistory0.json", "MyData/StreamingHistory1.json",
                              "MyData/StreamingHistory2.json", "MyData/StreamingHistory3.json"};
 string top_songs_by_play_time_path = "MyData/TopSongsMs.txt";
+string random_stats_path = "MyData/stats.txt";
 
 int main() {
-  vector<json > songs;
+  vector<json> json_songs;
   vector<SongTotalListens> sorted_songs;
   for (const string& file_path : file_paths) {
     ifstream json_stream(file_path);
@@ -37,15 +38,18 @@ int main() {
     vector<json> json_vector = json_songs_array.get<std::vector<json> >();
     // code for appending vectors taken from:
     // https://stackoverflow.com/questions/201718/concatenating-two-stdvectors
-    songs.insert(songs.end(), json_vector.begin(), json_vector.end());
+    json_songs.insert(json_songs.end(), json_vector.begin(), json_vector.end());
+  }
+  vector<SongListen> songs = ParseJson(json_songs);
+  sorted_songs = SortSongs(songs);
+  ofstream top_songs_file;
+  top_songs_file.open(top_songs_by_play_time_path);
+  for (const SongTotalListens& song : sorted_songs) {
+    top_songs_file << song << endl;
   }
   
-  sorted_songs = SortSongs(ParseJson(songs));
-  ofstream myfile;
-  myfile.open(top_songs_by_play_time_path);
-  for (const SongTotalListens& song : sorted_songs) {
-    myfile << song << endl;
-  }
+  ofstream stats_file;
+  stats_file.open(random_stats_path);
   
   return EXIT_SUCCESS;
 }
