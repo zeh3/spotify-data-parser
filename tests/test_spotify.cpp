@@ -30,7 +30,6 @@ TEST_CASE("test parsing", "[ParseJson]") {
   long ninth_ms = 200;
   SongListen ninth(sorry, ninth_ms, ninth_time);
   REQUIRE(ninth == song_listens[9]);
-  
 }
 
 

@@ -10,6 +10,7 @@
 
 using std::string;
 using std::vector;
+using std::max_element;
 using json = nlohmann::json;
 
 namespace spotify {
@@ -19,6 +20,7 @@ struct Song {
   string artist;
   Song(string set_name, string set_artist);
   Song();
+  bool operator==(const Song& song) const;
 };
 
 struct SongListen {
@@ -26,13 +28,14 @@ struct SongListen {
   long milliseconds_listened;
   string time;
   SongListen(Song set_song, long set_ms, string set_time);
-  bool operator > (const SongListen& song_listen) const;
+  bool operator<(const SongListen& song_listen) const;
+  bool operator==(const SongListen& song_listen) const;
 };
 
 struct SongTotalListens {
   Song song;
   long total_milliseconds_listened;
-  bool operator > (const SongTotalListens& song_total_listens) const;
+  bool operator<(const SongTotalListens& song_total_listens) const;
 };
 
 struct ArtistTotalListens {
@@ -47,9 +50,6 @@ vector<SongTotalListens> SortSongs(const vector<SongListen>& song_listens);
 std::ostream& operator<<(std::ostream& os, const SongTotalListens& s);
 
 std::ostream& operator<<(std::ostream& os, const SongListen& s);
-
-// errors if song_listens is empty
-SongListen GetLongestSongListen(const vector<SongListen>& song_listens);
 
 }
 
