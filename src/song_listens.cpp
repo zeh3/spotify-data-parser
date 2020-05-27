@@ -62,6 +62,7 @@ vector<vector<SongListen> > DivideByArtist(vector<SongListen> song_listens) {
 SongTotalListens::SongTotalListens(const SongListen &song_listen) {
   song = song_listen.song;
   total_milliseconds_listened = song_listen.milliseconds_listened;
+  times_listened = 1;
 }
 
 SongListen::SongListen(Song set_song, long set_ms, string set_time) {
