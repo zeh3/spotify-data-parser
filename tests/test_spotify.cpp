@@ -9,6 +9,8 @@
 
 using std::string;
 using std::ifstream;
+using std::cout;
+using std::endl;
 using namespace spotify;
 
 TEST_CASE("test parsing", "[ParseJson]") {

@@ -11,9 +11,13 @@
 
 using std::string;
 using std::vector;
+
 using std::max_element;
+using std::sort;
+
 using std::cout;
 using std::endl;
+
 using json = nlohmann::json;
 
 namespace spotify {
@@ -59,6 +63,8 @@ vector<vector<SongListen> > DivideByArtist(vector<SongListen> song_listens);
 std::ostream& operator<<(std::ostream& os, const SongTotalListens& s);
 
 std::ostream& operator<<(std::ostream& os, const SongListen& s);
+
+std::ostream& operator<<(std::ostream& os, const Song& s);
 
 }
 

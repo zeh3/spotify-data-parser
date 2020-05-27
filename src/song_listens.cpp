@@ -24,6 +24,20 @@ vector<SongTotalListens> SortSongs(const vector<SongListen> &song_listens) {
   vector<SongTotalListens> to_return;
   vector<vector<SongListen> > songs_together = DivideBySong(song_listens);
   
+  for (const vector<SongListen>& all_same_song : songs_together) {
+    SongTotalListens song(all_same_song[0]);
+    // start at 1 to skip the song already added
+    for (int i = 1; i < all_same_song.size(); i++) {
+      song.times_listened++;
+      song.total_milliseconds_listened += all_same_song[i].milliseconds_listened;
+    }
+    to_return.push_back(song);
+  }
+  // kinda from:
+  // https://stackoverflow.com/questions/1380463/sorting-a-vector-of-custom-objects
+  sort(to_return.begin(), to_return.end(), [](const SongTotalListens& lhs, const SongTotalListens& rhs) {
+    return lhs.total_milliseconds_listened > rhs.total_milliseconds_listened;
+  });
   return to_return;
 }
 
@@ -33,18 +47,16 @@ vector<vector<SongListen> > DivideBySong(vector<SongListen> song_listens) {
   vector<vector<SongListen> > to_return;
   int j = 0;
   while (!song_listens.empty()) {
-    cout << j << endl;
-    int i = 0;
+    
     SongListen first = song_listens[0];
     song_listens.erase(song_listens.begin());
     vector<SongListen> current_songs;
     current_songs.push_back(first);
-    for (const SongListen& song_listen : song_listens) {
-      if (song_listen.song == first.song) {
-        current_songs.push_back(song_listen);
+    for (int i = 0; i < song_listens.size(); i++) {
+      if (song_listens[i].song == first.song) {
+        current_songs.push_back(song_listens[i]);
         song_listens.erase(song_listens.begin() + i);
-      } else {
-        i++;
+        i--;
       }
     }
     to_return.push_back(current_songs);
@@ -106,5 +118,9 @@ std::ostream& operator<<(std::ostream& os, const SongTotalListens& s)
 
 std::ostream& operator<<(std::ostream& os, const SongListen& s) {
   return os << s.song.name << " by " << s.song.artist << " at " << s.time << ": " << s.milliseconds_listened;
+}
+
+std::ostream& operator<<(std::ostream& os, const Song& s) {
+  return os << s.name << " by " << s.artist;
 }
 }
