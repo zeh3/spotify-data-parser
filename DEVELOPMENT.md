@@ -14,3 +14,6 @@
 -5/25/2020\
     -basic test cases so I know it's not completely broken\
     -more groundwork
+    
+-5/27/2020\
+    -helper methods
