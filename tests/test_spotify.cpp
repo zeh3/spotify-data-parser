@@ -40,7 +40,7 @@ TEST_CASE("test sorting into lists of the same song", "[DivideBySong][ParseJson]
   vector<json> json_vector = j.get<std::vector<json> >();
   vector<SongListen> song_listens = ParseJson(json_vector);
   vector<vector<SongListen> > sorted_by_song = DivideBySong(song_listens);
-  for (vector<SongListen> all_same_song : sorted_by_song) {
+  for (const vector<SongListen>& all_same_song : sorted_by_song) {
     for (int i = 0; i < all_same_song.size() - 1; i++) {
       REQUIRE(all_same_song[i].song == all_same_song[i + 1].song);
     }
