@@ -36,6 +36,7 @@ struct SongListen {
 };
 
 struct SongTotalListens {
+  explicit SongTotalListens(const SongListen& song_listen);
   Song song;
   long total_milliseconds_listened;
   bool operator<(const SongTotalListens& song_total_listens) const;

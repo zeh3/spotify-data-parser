@@ -21,10 +21,10 @@ vector<SongListen> ParseJson(const vector<json> &songs) {
 }
 
 vector<SongTotalListens> SortSongs(const vector<SongListen> &song_listens) {
-  vector<SongTotalListens> vec;
+  vector<SongTotalListens> to_return;
   vector<vector<SongListen> > songs_together = DivideBySong(song_listens);
   
-  return vec;
+  return to_return;
 }
 
 
@@ -58,6 +58,11 @@ vector<vector<SongListen> > DivideByArtist(vector<SongListen> song_listens) {
 }
 
 // constructors
+
+SongTotalListens::SongTotalListens(const SongListen &song_listen) {
+  song = song_listen.song;
+  total_milliseconds_listened = song_listen.milliseconds_listened;
+}
 
 SongListen::SongListen(Song set_song, long set_ms, string set_time) {
   song = std::move(set_song);
