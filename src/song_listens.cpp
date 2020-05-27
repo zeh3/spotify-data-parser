@@ -7,6 +7,9 @@
 #include <utility>
 
 namespace spotify {
+
+// helper methods
+
 vector<SongListen> ParseJson(const vector<json> &songs) {
   vector<SongListen> vec;
   for (json j: songs) {
@@ -19,7 +22,39 @@ vector<SongListen> ParseJson(const vector<json> &songs) {
 
 vector<SongTotalListens> SortSongs(const vector<SongListen> &song_listens) {
   vector<SongTotalListens> vec;
+  vector<vector<SongListen> > songs_together = DivideBySong(song_listens);
+  
   return vec;
+}
+
+
+// i *know* this is like O(n^2) but i couldn't think of a better way so
+vector<vector<SongListen> > DivideBySong(vector<SongListen> song_listens) {
+  vector<vector<SongListen> > to_return;
+  int j = 0;
+  while (!song_listens.empty()) {
+    cout << j << endl;
+    int i = 0;
+    SongListen first = song_listens[0];
+    song_listens.erase(song_listens.begin());
+    vector<SongListen> current_songs;
+    current_songs.push_back(first);
+    for (const SongListen& song_listen : song_listens) {
+      if (song_listen.song == first.song) {
+        current_songs.push_back(song_listen);
+        song_listens.erase(song_listens.begin() + i);
+      } else {
+        i++;
+      }
+    }
+    to_return.push_back(current_songs);
+    j++;
+  }
+  return to_return;
+}
+
+vector<vector<SongListen> > DivideByArtist(vector<SongListen> song_listens) {
+
 }
 
 // constructors
