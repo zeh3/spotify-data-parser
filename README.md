@@ -24,3 +24,4 @@ Parses downloaded spotify data to produce a few interesting lists. Like spotify 
 - number of times you skipped a song/only listened to first x seconds
 - total time listening to a song
 - % of time listening to x song
+- see how similar lists by ms and lists by plays are (?)

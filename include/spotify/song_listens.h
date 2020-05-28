@@ -60,7 +60,13 @@ vector<SongListen> ParseJson(const vector<json>& songs);
 
 vector<SongTotalListens> SortSongsByMs(const vector<SongListen>& song_listens);
 
+vector<SongTotalListens> SortArtistsByMs(const vector<SongListen>& song_listens);
+
 map<Song, long> GetSongsToTotalMs(const vector<SongListen>& song_listens);
+
+map<Song, int> GetSongsToTotalPlays(const vector<SongListen>& song_listens);
+
+map<string, long> GetArtistToTotalMs(const vector<SongListen>& song_listens);
 
 std::ostream& operator<<(std::ostream& os, const SongTotalListens& s);
 
