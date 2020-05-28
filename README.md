@@ -11,14 +11,14 @@ Parses downloaded spotify data to produce a few interesting lists. Like spotify 
 - feel free to shoot me an email or make an issue if you run into any problems
 
 ## current features:
-- ranking songs by the amount of time you've spent listening to them
-- ranking artists by the amount of time you've spent listening to them
+- ranking songs & artists by the amount of time you've spent listening to them
+- ranking songs & artists by the number of times you've played them/their songs
 
 ## features to come:
 - longest listening sessions
 - longest listening sessions but like over the whole day? (maybe, full disclosure, that sounds hard)
-- songs ranked by times you listened instead of total time (min # of milliseconds to count as listen)
+- min # of milliseconds to count as a listen?
 - number of times you skipped a song/only listened to first x seconds
-- total time listening to a song
+- total time listening to music
 - % of time listening to x song
 - see how similar lists by ms and lists by plays are (?)
