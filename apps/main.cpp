@@ -41,7 +41,7 @@ int main() {
     json_songs.insert(json_songs.end(), json_vector.begin(), json_vector.end());
   }
   vector<SongListen> songs = ParseJson(json_songs);
-  sorted_songs = SortSongs(songs);
+  sorted_songs = SortSongsByMs(songs);
   ofstream top_songs_file;
   top_songs_file.open(top_songs_by_play_time_path);
   int i = 1;

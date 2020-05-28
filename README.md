@@ -6,7 +6,7 @@ Parses downloaded spotify data to produce a few interesting lists. Like spotify 
 - download and unzip your spotify data (it'll take a few days for spotify to send you your data) into a folder that should be called "MyData" 
 - move that folder into the top level directory of your project
 - My spotify data had 4 StreamingHistory.json files- yours might have a different number, so adjust the file_paths vector in main.cpp as necessary
-- compile and run the program (it might take a while- I'm working on that)
+- compile and run the program
 - your stats should appear in TopSongsMs.txt in your MyData folder
 - feel free to shoot me an email or make an issue if you run into any problems
 

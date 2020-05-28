@@ -58,13 +58,9 @@ struct ArtistTotalListens {
 
 vector<SongListen> ParseJson(const vector<json>& songs);
 
-vector<SongTotalListens> SortSongs(const vector<SongListen>& song_listens);
+vector<SongTotalListens> SortSongsByMs(const vector<SongListen>& song_listens);
 
 map<Song, long> GetSongsToTotalMs(const vector<SongListen>& song_listens);
-
-vector<vector<SongListen> > DivideBySong(vector<SongListen> song_listens);
-
-vector<vector<SongListen> > DivideByArtist(vector<SongListen> song_listens);
 
 std::ostream& operator<<(std::ostream& os, const SongTotalListens& s);
 

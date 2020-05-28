@@ -34,20 +34,5 @@ TEST_CASE("test parsing", "[ParseJson]") {
   REQUIRE(ninth == song_listens[9]);
 }
 
-TEST_CASE("test sorting into lists of the same song", "[DivideBySong][ParseJson]") {
-  string example_file_path = "data/ExampleOneDay.json";
-  ifstream json_stream(example_file_path);
-  json j;
-  json_stream >> j;
-  vector<json> json_vector = j.get<std::vector<json> >();
-  vector<SongListen> song_listens = ParseJson(json_vector);
-  vector<vector<SongListen> > sorted_by_song = DivideBySong(song_listens);
-  for (const vector<SongListen>& all_same_song : sorted_by_song) {
-    for (int i = 0; i < all_same_song.size() - 1; i++) {
-      REQUIRE(all_same_song[i].song == all_same_song[i + 1].song);
-    }
-  }
-}
-
 
 
