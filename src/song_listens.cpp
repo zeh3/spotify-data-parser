@@ -22,7 +22,16 @@ vector<SongListen> ParseJson(const vector<json> &songs) {
 
 vector<SongTotalListens> SortSongs(const vector<SongListen> &song_listens) {
   vector<SongTotalListens> to_return;
-  vector<vector<SongListen> > songs_together = DivideBySong(song_listens);
+  
+  map<Song, long>::iterator itr;
+  map<Song, long> all_song_listens = GetSongsToTotalMs(song_listens);
+  
+  for (itr = all_song_listens.begin(); itr != all_song_listens.end(); ++itr) {
+    SongTotalListens song(itr->first, itr->second);
+    to_return.push_back(song);
+  }
+  
+  /*vector<vector<SongListen> > songs_together = DivideBySong(song_listens);
   
   for (const vector<SongListen>& all_same_song : songs_together) {
     SongTotalListens song(all_same_song[0]);
@@ -32,12 +41,26 @@ vector<SongTotalListens> SortSongs(const vector<SongListen> &song_listens) {
       song.total_milliseconds_listened += all_same_song[i].milliseconds_listened;
     }
     to_return.push_back(song);
-  }
+  }*/
   // kinda from:
   // https://stackoverflow.com/questions/1380463/sorting-a-vector-of-custom-objects
   sort(to_return.begin(), to_return.end(), [](const SongTotalListens& lhs, const SongTotalListens& rhs) {
     return lhs.total_milliseconds_listened > rhs.total_milliseconds_listened;
   });
+  return to_return;
+}
+
+map<Song, long> GetSongsToTotalMs(const vector<SongListen>& song_listens) {
+  map<Song, long> to_return;
+  for (const SongListen& song_listen : song_listens) {
+    // ty stackoverflow
+    // https://stackoverflow.com/questions/60107054/c-equivalent-to-java-map-getordefault
+    auto element = to_return.emplace(song_listen.song, song_listen.milliseconds_listened);
+    // if nothing was emplaced
+    if (!element.second) {
+      element.first->second += song_listen.milliseconds_listened;
+    }
+  }
   return to_return;
 }
 
@@ -77,6 +100,12 @@ SongTotalListens::SongTotalListens(const SongListen &song_listen) {
   times_listened = 1;
 }
 
+SongTotalListens::SongTotalListens(const Song& set_song, long set_ms) {
+  song = set_song;
+  total_milliseconds_listened = set_ms;
+  times_listened = 1;
+}
+
 SongListen::SongListen(Song set_song, long set_ms, string set_time) {
   song = std::move(set_song);
   milliseconds_listened = set_ms;
@@ -113,7 +142,21 @@ bool SongListen::operator==(const SongListen &song_listen) const {
 
 std::ostream& operator<<(std::ostream& os, const SongTotalListens& s)
 {
-  return os << s.song.name << " by " << s.song.artist << ": " << s.total_milliseconds_listened;
+  // again stolen from stackoverflow
+  // https://stackoverflow.com/questions/50727304/convert-milliseconds-to-hoursminutessecondsmilliseconds-in-c
+  long milli = s.total_milliseconds_listened;
+  //3600000 milliseconds in an hour
+  long hr = milli / 3600000;
+  milli = milli - 3600000 * hr;
+  //60000 milliseconds in a minute
+  long min = milli / 60000;
+  milli = milli - 60000 * min;
+  //1000 milliseconds in a second
+  long sec = milli / 1000;
+  milli = milli - 1000 * sec;
+  
+  return os << s.song.name << " by " << s.song.artist << ": " << hr << " hr, "
+    << min << " min, " << sec << " sec, " << milli << " ms";
 }
 
 std::ostream& operator<<(std::ostream& os, const SongListen& s) {
@@ -122,5 +165,9 @@ std::ostream& operator<<(std::ostream& os, const SongListen& s) {
 
 std::ostream& operator<<(std::ostream& os, const Song& s) {
   return os << s.name << " by " << s.artist;
+}
+
+bool Song::operator<(const Song& song) const {
+  return name < song.name;
 }
 }

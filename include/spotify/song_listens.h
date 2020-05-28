@@ -11,6 +11,8 @@
 
 using std::string;
 using std::vector;
+using std::map;
+using std::pair;
 
 using std::max_element;
 using std::sort;
@@ -28,6 +30,7 @@ struct Song {
   Song(string set_name, string set_artist);
   Song();
   bool operator==(const Song& song) const;
+  bool operator<(const Song& song) const;
 };
 
 struct SongListen {
@@ -41,6 +44,7 @@ struct SongListen {
 
 struct SongTotalListens {
   explicit SongTotalListens(const SongListen& song_listen);
+  SongTotalListens(const Song& set_song, long set_ms);
   Song song;
   long total_milliseconds_listened;
   int times_listened;
@@ -55,6 +59,8 @@ struct ArtistTotalListens {
 vector<SongListen> ParseJson(const vector<json>& songs);
 
 vector<SongTotalListens> SortSongs(const vector<SongListen>& song_listens);
+
+map<Song, long> GetSongsToTotalMs(const vector<SongListen>& song_listens);
 
 vector<vector<SongListen> > DivideBySong(vector<SongListen> song_listens);
 
