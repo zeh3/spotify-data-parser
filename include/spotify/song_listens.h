@@ -33,6 +33,13 @@ struct Song {
   bool operator<(const Song& song) const;
 };
 
+struct Plays {
+  Plays(long set_ms, int set_times);
+  Plays();
+  long milliseconds_listened;
+  int times_listened;
+};
+
 struct SongListen {
   Song song;
   long milliseconds_listened;
@@ -44,18 +51,19 @@ struct SongListen {
 
 struct SongTotalListens {
   explicit SongTotalListens(const SongListen& song_listen);
-  SongTotalListens(const Song& set_song, long set_ms);
+  SongTotalListens(const Song& set_song, Plays set_plays);
   Song song;
-  long total_milliseconds_listened;
-  int times_listened;
+  Plays plays;
   bool operator<(const SongTotalListens& song_total_listens) const;
 };
 
 struct ArtistTotalListens {
-  ArtistTotalListens(const string& set_artist, long set_ms);
+  ArtistTotalListens(const string& set_artist, Plays set_plays);
   string artist;
-  long total_milliseconds_listened;
+  Plays plays;
 };
+
+
 
 vector<SongListen> ParseJson(const vector<json>& songs);
 
@@ -63,11 +71,9 @@ vector<SongTotalListens> SortSongsByMs(const vector<SongListen>& song_listens);
 
 vector<ArtistTotalListens> SortArtistsByMs(const vector<SongListen>& song_listens);
 
-map<Song, long> GetSongsToTotalMs(const vector<SongListen>& song_listens);
+map<Song, Plays> GetSongsToTotalMs(const vector<SongListen>& song_listens);
 
-map<Song, int> GetSongsToTotalPlays(const vector<SongListen>& song_listens);
-
-map<string, long> GetArtistToTotalMs(const vector<SongListen>& song_listens);
+map<string, Plays> GetArtistToTotalMs(const vector<SongListen>& song_listens);
 
 std::ostream& operator<<(std::ostream& os, const SongTotalListens& s);
 
