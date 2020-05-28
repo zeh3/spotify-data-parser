@@ -16,6 +16,7 @@ using std::ofstream;
 vector<string> file_paths = {"MyData/StreamingHistory0.json", "MyData/StreamingHistory1.json",
                              "MyData/StreamingHistory2.json", "MyData/StreamingHistory3.json"};
 string top_songs_by_play_time_path = "MyData/TopSongsMs.txt";
+string top_songs_by_plays_path = "MyData/TopSongsPlays.txt";
 string top_artists_by_play_time_path = "MyData/TopArtistsMs.txt";
 string random_stats_path = "MyData/stats.txt";
 
@@ -43,21 +44,30 @@ int main() {
   }
   vector<SongListen> songs = ParseJson(json_songs);
   
-  vector<SongTotalListens> sorted_songs = SortSongsByMs(songs);
-  ofstream top_songs_file;
-  top_songs_file.open(top_songs_by_play_time_path);
+  vector<SongTotalListens> sorted_songs_ms = SortSongsByMs(songs);
+  ofstream top_songs_ms_file;
+  top_songs_ms_file.open(top_songs_by_play_time_path);
   int i = 1;
-  for (const SongTotalListens& song : sorted_songs) {
-    top_songs_file << i << ": " << song << endl;
+  for (const SongTotalListens& song : sorted_songs_ms) {
+    top_songs_ms_file << i << ": " << song << endl;
+    i++;
+  }
+  
+  vector<SongTotalListens> sorted_songs_plays = SortSongsByPlays(songs);
+  ofstream top_songs_plays_file;
+  top_songs_plays_file.open(top_songs_by_plays_path);
+  i = 1;
+  for (const SongTotalListens& song : sorted_songs_plays) {
+    top_songs_plays_file << i << ": " << song.song << ": " << song.plays.times_listened << endl;
     i++;
   }
   
   vector<ArtistTotalListens> sorted_artists = SortArtistsByMs(songs);
-  ofstream top_artists_file;
-  top_artists_file.open(top_artists_by_play_time_path);
+  ofstream top_artists_ms_file;
+  top_artists_ms_file.open(top_artists_by_play_time_path);
   i = 1;
   for (const ArtistTotalListens& artist : sorted_artists) {
-    top_artists_file << i << ": " << artist << endl;
+    top_artists_ms_file << i << ": " << artist << endl;
     i++;
   }
   

@@ -38,6 +38,15 @@ vector<SongTotalListens> SortSongsByMs(const vector<SongListen> &song_listens) {
   return to_return;
 }
 
+vector<SongTotalListens> SortSongsByPlays(const vector<SongListen>& song_listens) {
+  vector<SongTotalListens> songs = SortSongsByMs(song_listens);
+  sort(songs.begin(), songs.end(), [](const SongTotalListens& lhs, const SongTotalListens& rhs) {
+    return lhs.plays.times_listened > rhs.plays.times_listened;
+  });
+  return songs;
+}
+
+
 map<Song, Plays> GetSongsToTotalMs(const vector<SongListen>& song_listens) {
   map<Song, Plays> to_return;
   for (const SongListen& song_listen : song_listens) {
@@ -50,6 +59,7 @@ map<Song, Plays> GetSongsToTotalMs(const vector<SongListen>& song_listens) {
       element.first->second.times_listened++;
     }
   }
+  
   return to_return;
 }
 
@@ -90,7 +100,7 @@ map<string, Plays> GetArtistToTotalMs(const vector<SongListen>& song_listens) {
 
 Plays::Plays(long set_ms, int set_times) {
   milliseconds_listened = set_ms;
-  times_listened = set_ms;
+  times_listened = set_times;
 }
 
 ArtistTotalListens::ArtistTotalListens(const string &set_artist, Plays set_plays) {

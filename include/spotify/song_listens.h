@@ -71,6 +71,8 @@ vector<SongTotalListens> SortSongsByMs(const vector<SongListen>& song_listens);
 
 vector<ArtistTotalListens> SortArtistsByMs(const vector<SongListen>& song_listens);
 
+vector<SongTotalListens> SortSongsByPlays(const vector<SongListen>& song_listens);
+
 map<Song, Plays> GetSongsToTotalMs(const vector<SongListen>& song_listens);
 
 map<string, Plays> GetArtistToTotalMs(const vector<SongListen>& song_listens);
