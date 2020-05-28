@@ -18,6 +18,7 @@ vector<string> file_paths = {"MyData/StreamingHistory0.json", "MyData/StreamingH
 string top_songs_by_play_time_path = "MyData/TopSongsMs.txt";
 string top_songs_by_plays_path = "MyData/TopSongsPlays.txt";
 string top_artists_by_play_time_path = "MyData/TopArtistsMs.txt";
+string top_artists_by_plays_path = "MyData/TopArtistsPlays.txt";
 string random_stats_path = "MyData/stats.txt";
 
 int main() {
@@ -62,12 +63,21 @@ int main() {
     i++;
   }
   
-  vector<ArtistTotalListens> sorted_artists = SortArtistsByMs(songs);
+  vector<ArtistTotalListens> sorted_artists_ms = SortArtistsByMs(songs);
   ofstream top_artists_ms_file;
   top_artists_ms_file.open(top_artists_by_play_time_path);
   i = 1;
-  for (const ArtistTotalListens& artist : sorted_artists) {
+  for (const ArtistTotalListens& artist : sorted_artists_ms) {
     top_artists_ms_file << i << ": " << artist << endl;
+    i++;
+  }
+  
+  vector<ArtistTotalListens> sorted_artists_plays = SortArtistsByPlays(songs);
+  ofstream top_artists_plays_file;
+  top_artists_plays_file.open(top_artists_by_plays_path);
+  i = 1;
+  for (const ArtistTotalListens& artist : sorted_artists_plays) {
+    top_artists_plays_file << i << ": " << artist.artist << ": " << artist.plays.times_listened << endl;
     i++;
   }
   

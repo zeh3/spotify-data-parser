@@ -59,7 +59,6 @@ map<Song, Plays> GetSongsToTotalMs(const vector<SongListen>& song_listens) {
       element.first->second.times_listened++;
     }
   }
-  
   return to_return;
 }
 
@@ -79,6 +78,15 @@ vector<ArtistTotalListens> SortArtistsByMs(const vector<SongListen>& song_listen
     return lhs.plays.milliseconds_listened > rhs.plays.milliseconds_listened;
   });
   return to_return;
+}
+
+vector<ArtistTotalListens> SortArtistsByPlays(const vector<SongListen>& song_listens) {
+  vector<ArtistTotalListens> artists = SortArtistsByMs(song_listens);
+  sort(artists.begin(), artists.end(), [](const ArtistTotalListens& lhs, const ArtistTotalListens& rhs) {
+    return lhs.plays.times_listened > rhs.plays.times_listened;
+  });
+  
+  return artists;
 }
 
 map<string, Plays> GetArtistToTotalMs(const vector<SongListen>& song_listens) {
