@@ -16,5 +16,5 @@
     -more groundwork
     
 -5/27/2020\
-    -helper methods
+    -helper methods\
     -finished SortSongs
