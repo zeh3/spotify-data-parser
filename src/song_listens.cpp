@@ -142,7 +142,21 @@ bool SongListen::operator==(const SongListen &song_listen) const {
 
 std::ostream& operator<<(std::ostream& os, const SongTotalListens& s)
 {
-  return os << s.song.name << " by " << s.song.artist << ": " << s.total_milliseconds_listened;
+  // again stolen from stackoverflow
+  // https://stackoverflow.com/questions/50727304/convert-milliseconds-to-hoursminutessecondsmilliseconds-in-c
+  long milli = s.total_milliseconds_listened;
+  //3600000 milliseconds in an hour
+  long hr = milli / 3600000;
+  milli = milli - 3600000 * hr;
+  //60000 milliseconds in a minute
+  long min = milli / 60000;
+  milli = milli - 60000 * min;
+  //1000 milliseconds in a second
+  long sec = milli / 1000;
+  milli = milli - 1000 * sec;
+  
+  return os << s.song.name << " by " << s.song.artist << ": " << hr << " hr, "
+    << min << " min, " << sec << " sec, " << milli << " ms";
 }
 
 std::ostream& operator<<(std::ostream& os, const SongListen& s) {
