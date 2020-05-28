@@ -21,4 +21,5 @@
     - sorts artists
     
 -5/28/2020\
-    [ ] sorting by # of plays
+    [ ] sorting by # of plays\
+    -refactoring
