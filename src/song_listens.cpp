@@ -22,7 +22,16 @@ vector<SongListen> ParseJson(const vector<json> &songs) {
 
 vector<SongTotalListens> SortSongs(const vector<SongListen> &song_listens) {
   vector<SongTotalListens> to_return;
-  vector<vector<SongListen> > songs_together = DivideBySong(song_listens);
+  
+  map<Song, long>::iterator itr;
+  map<Song, long> all_song_listens = GetSongsToTotalMs(song_listens);
+  
+  for (itr = all_song_listens.begin(); itr != all_song_listens.end(); ++itr) {
+    SongTotalListens song(itr->first, itr->second);
+    to_return.push_back(song);
+  }
+  
+  /*vector<vector<SongListen> > songs_together = DivideBySong(song_listens);
   
   for (const vector<SongListen>& all_same_song : songs_together) {
     SongTotalListens song(all_same_song[0]);
@@ -32,12 +41,26 @@ vector<SongTotalListens> SortSongs(const vector<SongListen> &song_listens) {
       song.total_milliseconds_listened += all_same_song[i].milliseconds_listened;
     }
     to_return.push_back(song);
-  }
+  }*/
   // kinda from:
   // https://stackoverflow.com/questions/1380463/sorting-a-vector-of-custom-objects
   sort(to_return.begin(), to_return.end(), [](const SongTotalListens& lhs, const SongTotalListens& rhs) {
     return lhs.total_milliseconds_listened > rhs.total_milliseconds_listened;
   });
+  return to_return;
+}
+
+map<Song, long> GetSongsToTotalMs(const vector<SongListen>& song_listens) {
+  map<Song, long> to_return;
+  for (const SongListen& song_listen : song_listens) {
+    // ty stackoverflow
+    // https://stackoverflow.com/questions/60107054/c-equivalent-to-java-map-getordefault
+    auto element = to_return.emplace(song_listen.song, song_listen.milliseconds_listened);
+    // if nothing was emplaced
+    if (!element.second) {
+      element.first->second += song_listen.milliseconds_listened;
+    }
+  }
   return to_return;
 }
 
@@ -74,6 +97,12 @@ vector<vector<SongListen> > DivideByArtist(vector<SongListen> song_listens) {
 SongTotalListens::SongTotalListens(const SongListen &song_listen) {
   song = song_listen.song;
   total_milliseconds_listened = song_listen.milliseconds_listened;
+  times_listened = 1;
+}
+
+SongTotalListens::SongTotalListens(const Song& set_song, long set_ms) {
+  song = set_song;
+  total_milliseconds_listened = set_ms;
   times_listened = 1;
 }
 
@@ -122,5 +151,9 @@ std::ostream& operator<<(std::ostream& os, const SongListen& s) {
 
 std::ostream& operator<<(std::ostream& os, const Song& s) {
   return os << s.name << " by " << s.artist;
+}
+
+bool Song::operator<(const Song& song) const {
+  return name < song.name;
 }
 }
