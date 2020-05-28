@@ -52,7 +52,44 @@ map<Song, long> GetSongsToTotalMs(const vector<SongListen>& song_listens) {
   return to_return;
 }
 
+vector<ArtistTotalListens> SortArtistsByMs(const vector<SongListen>& song_listens) {
+  vector<ArtistTotalListens> to_return;
+  
+  map<string, long>::iterator itr;
+  map<string, long> all_artist_listens = GetArtistToTotalMs(song_listens);
+  
+  for (itr = all_artist_listens.begin(); itr != all_artist_listens.end(); ++itr) {
+    ArtistTotalListens artist(itr->first, itr->second);
+    to_return.push_back(artist);
+  }
+  // kinda from:
+  // https://stackoverflow.com/questions/1380463/sorting-a-vector-of-custom-objects
+  sort(to_return.begin(), to_return.end(), [](const ArtistTotalListens& lhs, const ArtistTotalListens& rhs) {
+    return lhs.total_milliseconds_listened > rhs.total_milliseconds_listened;
+  });
+  return to_return;
+}
+
+map<string, long> GetArtistToTotalMs(const vector<SongListen>& song_listens) {
+  map<string, long> to_return;
+  for (const SongListen& song_listen : song_listens) {
+    // ty stackoverflow
+    // https://stackoverflow.com/questions/60107054/c-equivalent-to-java-map-getordefault
+    auto element = to_return.emplace(song_listen.song.artist, song_listen.milliseconds_listened);
+    // if nothing was emplaced
+    if (!element.second) {
+      element.first->second += song_listen.milliseconds_listened;
+    }
+  }
+  return to_return;
+}
+
 // constructors
+
+ArtistTotalListens::ArtistTotalListens(const string &set_artist, long set_ms) {
+  artist = set_artist;
+  total_milliseconds_listened = set_ms;
+}
 
 SongTotalListens::SongTotalListens(const SongListen &song_listen) {
   song = song_listen.song;
@@ -130,4 +167,23 @@ std::ostream& operator<<(std::ostream& os, const Song& s) {
 bool Song::operator<(const Song& song) const {
   return name < song.name;
 }
+
+std::ostream& operator<<(std::ostream& os, const ArtistTotalListens& a) {
+  // again stolen from stackoverflow
+  // https://stackoverflow.com/questions/50727304/convert-milliseconds-to-hoursminutessecondsmilliseconds-in-c
+  long milli = a.total_milliseconds_listened;
+  //3600000 milliseconds in an hour
+  long hr = milli / 3600000;
+  milli = milli - 3600000 * hr;
+  //60000 milliseconds in a minute
+  long min = milli / 60000;
+  milli = milli - 60000 * min;
+  //1000 milliseconds in a second
+  long sec = milli / 1000;
+  milli = milli - 1000 * sec;
+  
+  return os << a.artist << ": " << hr << " hr, "
+            << min << " min, " << sec << " sec, " << milli << " ms";
+}
+
 }

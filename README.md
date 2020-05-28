@@ -7,19 +7,16 @@ Parses downloaded spotify data to produce a few interesting lists. Like spotify 
 - move that folder into the top level directory of your project
 - My spotify data had 4 StreamingHistory.json files- yours might have a different number, so adjust the file_paths vector in main.cpp as necessary
 - compile and run the program
-- your stats should appear in TopSongsMs.txt in your MyData folder
+- your stats should appear in TopSongsMs.txt and TopArtistsMs.txt in your MyData folder
 - feel free to shoot me an email or make an issue if you run into any problems
-
-
 
 ## current features:
 - ranking songs by the amount of time you've spent listening to them
+- ranking artists by the amount of time you've spent listening to them
 
 ## features to come:
-- songs ranked
 - longest listening sessions
 - longest listening sessions but like over the whole day? (maybe, full disclosure, that sounds hard)
-- artists ranked
 - songs ranked by times you listened instead of total time (min # of milliseconds to count as listen)
 - number of times you skipped a song/only listened to first x seconds
 - total time listening to a song
