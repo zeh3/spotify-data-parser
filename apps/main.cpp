@@ -44,8 +44,10 @@ int main() {
   sorted_songs = SortSongs(songs);
   ofstream top_songs_file;
   top_songs_file.open(top_songs_by_play_time_path);
+  int i = 1;
   for (const SongTotalListens& song : sorted_songs) {
-    top_songs_file << song << endl;
+    top_songs_file << i << ": " << song << endl;
+    i++;
   }
   
   return EXIT_SUCCESS;
