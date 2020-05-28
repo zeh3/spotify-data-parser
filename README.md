@@ -18,7 +18,9 @@ Parses downloaded spotify data to produce a few interesting lists. Like spotify 
 ## features to come:
 - songs ranked
 - longest listening sessions
-- longest listening sessions but like over the whole day? (maybe)
+- longest listening sessions but like over the whole day? (maybe, full disclosure, that sounds hard)
 - artists ranked
 - songs ranked by times you listened instead of total time (min # of milliseconds to count as listen)
 - number of times you skipped a song/only listened to first x seconds
+- total time listening to a song
+- % of time listening to x song
