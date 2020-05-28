@@ -48,8 +48,5 @@ int main() {
     top_songs_file << song << endl;
   }
   
-  ofstream stats_file;
-  stats_file.open(random_stats_path);
-  
   return EXIT_SUCCESS;
 }
