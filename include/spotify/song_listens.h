@@ -52,21 +52,26 @@ struct SongTotalListens {
 };
 
 struct ArtistTotalListens {
+  ArtistTotalListens(const string& set_artist, long set_ms);
   string artist;
   long total_milliseconds_listened;
 };
 
 vector<SongListen> ParseJson(const vector<json>& songs);
 
-vector<SongTotalListens> SortSongs(const vector<SongListen>& song_listens);
+vector<SongTotalListens> SortSongsByMs(const vector<SongListen>& song_listens);
+
+vector<ArtistTotalListens> SortArtistsByMs(const vector<SongListen>& song_listens);
 
 map<Song, long> GetSongsToTotalMs(const vector<SongListen>& song_listens);
 
-vector<vector<SongListen> > DivideBySong(vector<SongListen> song_listens);
+map<Song, int> GetSongsToTotalPlays(const vector<SongListen>& song_listens);
 
-vector<vector<SongListen> > DivideByArtist(vector<SongListen> song_listens);
+map<string, long> GetArtistToTotalMs(const vector<SongListen>& song_listens);
 
 std::ostream& operator<<(std::ostream& os, const SongTotalListens& s);
+
+std::ostream& operator<<(std::ostream& os, const ArtistTotalListens& a);
 
 std::ostream& operator<<(std::ostream& os, const SongListen& s);
 

@@ -9,12 +9,12 @@
 -5/23/2020\
     -finish main.cpp\
     -finish example json for testing\
-    -laying groundwork for SortSongs which intimidates me
+    -laying groundwork for SortSongsByMs which intimidates me
     
 -5/25/2020\
     -basic test cases so I know it's not completely broken\
     -more groundwork
     
 -5/27/2020\
-    -finished SortSongs\
+    -finished SortSongsByMs\
     -performance improvements
