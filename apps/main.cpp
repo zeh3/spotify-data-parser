@@ -19,6 +19,7 @@ string top_songs_by_play_time_path = "MyData/TopSongsMs.txt";
 string top_songs_by_plays_path = "MyData/TopSongsPlays.txt";
 string top_artists_by_play_time_path = "MyData/TopArtistsMs.txt";
 string top_artists_by_plays_path = "MyData/TopArtistsPlays.txt";
+string artists_breakdown_path = "MyData/ArtistsBreakdown.txt";
 string random_stats_path = "MyData/stats.txt";
 
 int main() {
@@ -80,6 +81,28 @@ int main() {
     top_artists_plays_file << i << ": " << artist.artist << ": " << artist.plays.times_listened << endl;
     i++;
   }
+  
+  vector<vector<SongTotalListens> > songs_by_artist = GetSortedSongsByArtist(songs);
+  ofstream artists_file;
+  artists_file.open(artists_breakdown_path);
+  for (const vector<SongTotalListens>& song_listens: songs_by_artist) {
+    artists_file << "ARTIST: " << song_listens[0].song.artist << endl;
+    i = 1;
+    for (const SongTotalListens& song_listen : song_listens) {
+      artists_file << i << ": " << song_listen << endl;
+      i++;
+    }
+    artists_file << endl;
+  }
+  
+  // let's be real i will need this to debug again at some point
+  /*ofstream songs_file;
+  songs_file.open("MyData/songs.txt");
+  i = 1;
+  for (const SongListen& song : songs) {
+    songs_file << i << ": " << song << endl;
+    i++;
+  }*/
   
   return EXIT_SUCCESS;
 }
