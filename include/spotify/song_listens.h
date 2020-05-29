@@ -13,6 +13,7 @@ using std::string;
 using std::vector;
 using std::map;
 using std::pair;
+using std::exception;
 
 using std::max_element;
 using std::sort;

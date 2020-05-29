@@ -104,7 +104,22 @@ map<string, Plays> GetArtistToTotalMs(const vector<SongListen>& song_listens) {
 }
 
 vector<vector<SongTotalListens> > GetSortedSongsByArtist(const vector<SongListen>& song_listens) {
+  vector<vector<SongTotalListens> > to_return;
   map<string, vector<SongTotalListens> > artist_to_songs = MapArtistsToSongs(song_listens);
+  vector<ArtistTotalListens> sorted_artists = SortArtistsByMs(song_listens);
+  
+  to_return.reserve(sorted_artists.size());
+  for (const ArtistTotalListens& artist_listen: sorted_artists) {
+    
+    try {
+      to_return.push_back(artist_to_songs.at(artist_listen.artist));
+    } catch(exception e) {
+      cout << artist_listen.artist << endl;
+    }
+    
+  }
+  
+  return to_return;
 }
 
 map<string, vector<SongTotalListens> > MapArtistsToSongs(const vector<SongListen>& song_listens) {
@@ -215,7 +230,7 @@ std::ostream& operator<<(std::ostream& os, const Song& s) {
 }
 
 bool Song::operator<(const Song& song) const {
-  return name < song.name;
+  return name + artist < song.name + song.artist;
 }
 
 std::ostream& operator<<(std::ostream& os, const ArtistTotalListens& a) {

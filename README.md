@@ -22,3 +22,5 @@ Parses downloaded spotify data to produce a few interesting lists. Like spotify 
 - total time listening to music
 - % of time listening to x song
 - see how similar lists by ms and lists by plays are (?)
+- breakdown of time spent listening to each song by % for each artist
+- how many songs you've heard from each artist
