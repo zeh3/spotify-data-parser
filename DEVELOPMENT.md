@@ -21,5 +21,7 @@
     - sorts artists
     
 -5/28/2020\
-    [ ] sorting by # of plays\
-    -refactoring
+    [X] sorting by # of plays\
+    - refactoring\
+    - I fixed this one weird bug where songs with the same name weren't showing up in the songs lists, it turns out it was because of the way I overloaded the < operator- I made it so that was only dependent on the song name, which apparently meant the map treated each song with the same name as the same key. Fixed by making the < operator compare the concatonated song name and artist name.\
+    - breakdown sorted by artist, todo: add more data to that (%, etc)
