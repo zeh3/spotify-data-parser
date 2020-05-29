@@ -13,6 +13,7 @@ Parses downloaded spotify data to produce a few interesting lists. Like spotify 
 ## current features:
 - ranking songs & artists by the amount of time you've spent listening to them
 - ranking songs & artists by the number of times you've played them/their songs
+- songs broken down and ranked by artist
 
 ## features to come:
 - longest listening sessions
