@@ -13,6 +13,7 @@ Parses downloaded spotify data to produce a few interesting lists. Like spotify 
 ## current features:
 - ranking songs & artists by the amount of time you've spent listening to them
 - ranking songs & artists by the number of times you've played them/their songs
+- songs broken down and ranked by artist
 
 ## features to come:
 - longest listening sessions
@@ -22,3 +23,5 @@ Parses downloaded spotify data to produce a few interesting lists. Like spotify 
 - total time listening to music
 - % of time listening to x song
 - see how similar lists by ms and lists by plays are (?)
+- breakdown of time spent listening to each song by % for each artist
+- how many songs you've heard from each artist

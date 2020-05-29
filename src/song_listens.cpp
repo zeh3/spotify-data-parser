@@ -85,7 +85,6 @@ vector<ArtistTotalListens> SortArtistsByPlays(const vector<SongListen>& song_lis
   sort(artists.begin(), artists.end(), [](const ArtistTotalListens& lhs, const ArtistTotalListens& rhs) {
     return lhs.plays.times_listened > rhs.plays.times_listened;
   });
-  
   return artists;
 }
 
@@ -101,6 +100,44 @@ map<string, Plays> GetArtistToTotalMs(const vector<SongListen>& song_listens) {
       element.first->second.times_listened++;
     }
   }
+  return to_return;
+}
+
+vector<vector<SongTotalListens> > GetSortedSongsByArtist(const vector<SongListen>& song_listens) {
+  vector<vector<SongTotalListens> > to_return;
+  map<string, vector<SongTotalListens> > artist_to_songs = MapArtistsToSongs(song_listens);
+  vector<ArtistTotalListens> sorted_artists = SortArtistsByMs(song_listens);
+  
+  to_return.reserve(sorted_artists.size());
+  for (const ArtistTotalListens& artist_listen: sorted_artists) {
+    
+    try {
+      to_return.push_back(artist_to_songs.at(artist_listen.artist));
+    } catch(exception e) {
+      cout << artist_listen.artist << endl;
+    }
+    
+  }
+  
+  return to_return;
+}
+
+map<string, vector<SongTotalListens> > MapArtistsToSongs(const vector<SongListen>& song_listens) {
+  vector<SongTotalListens> song_total_listens = SortSongsByMs(song_listens);
+  map<string, vector<SongTotalListens> > to_return;
+  
+  for (const SongTotalListens& song_total_listen : song_total_listens) {
+    // ty stackoverflow
+    // https://stackoverflow.com/questions/60107054/c-equivalent-to-java-map-getordefault
+    vector<SongTotalListens> vec;
+    vec.push_back(song_total_listen);
+    auto element = to_return.emplace(song_total_listen.song.artist, vec);
+    // if nothing was emplaced
+    if (!element.second) {
+      element.first->second.push_back(song_total_listen);
+    }
+  }
+  
   return to_return;
 }
 
@@ -193,7 +230,7 @@ std::ostream& operator<<(std::ostream& os, const Song& s) {
 }
 
 bool Song::operator<(const Song& song) const {
-  return name < song.name;
+  return name + artist < song.name + song.artist;
 }
 
 std::ostream& operator<<(std::ostream& os, const ArtistTotalListens& a) {

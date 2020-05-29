@@ -13,6 +13,7 @@ using std::string;
 using std::vector;
 using std::map;
 using std::pair;
+using std::exception;
 
 using std::max_element;
 using std::sort;
@@ -78,6 +79,10 @@ vector<ArtistTotalListens> SortArtistsByPlays(const vector<SongListen>& song_lis
 map<Song, Plays> GetSongsToTotalMs(const vector<SongListen>& song_listens);
 
 map<string, Plays> GetArtistToTotalMs(const vector<SongListen>& song_listens);
+
+vector<vector<SongTotalListens> > GetSortedSongsByArtist(const vector<SongListen>& song_listens);
+
+map<string, vector<SongTotalListens> > MapArtistsToSongs(const vector<SongListen>& song_listens);
 
 std::ostream& operator<<(std::ostream& os, const SongTotalListens& s);
 
