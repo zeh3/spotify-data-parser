@@ -79,6 +79,10 @@ map<Song, Plays> GetSongsToTotalMs(const vector<SongListen>& song_listens);
 
 map<string, Plays> GetArtistToTotalMs(const vector<SongListen>& song_listens);
 
+vector<vector<SongTotalListens> > GetSortedSongsByArtist(const vector<SongListen>& song_listens);
+
+map<string, vector<SongTotalListens> > MapArtistsToSongs(const vector<SongListen>& song_listens);
+
 std::ostream& operator<<(std::ostream& os, const SongTotalListens& s);
 
 std::ostream& operator<<(std::ostream& os, const ArtistTotalListens& a);
