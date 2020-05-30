@@ -9,26 +9,14 @@
 #include <iostream>
 #include "nlohmann/json.hpp"
 
-using std::string;
-using std::vector;
-using std::map;
-using std::pair;
-using std::exception;
 
-using std::max_element;
-using std::sort;
-
-using std::cout;
-using std::endl;
-
-using json = nlohmann::json;
 
 namespace spotify {
 
 struct Song {
-  string name;
-  string artist;
-  Song(string set_name, string set_artist);
+  std::string name;
+  std::string artist;
+  Song(std::string set_name, std::string set_artist);
   Song();
   bool operator==(const Song& song) const;
   bool operator<(const Song& song) const;
@@ -44,8 +32,8 @@ struct Plays {
 struct SongListen {
   Song song;
   long milliseconds_listened;
-  string time;
-  SongListen(Song set_song, long set_ms, string set_time);
+  std::string time;
+  SongListen(Song set_song, long set_ms, std::string set_time);
   bool operator<(const SongListen& song_listen) const;
   bool operator==(const SongListen& song_listen) const;
 };
@@ -59,30 +47,30 @@ struct SongTotalListens {
 };
 
 struct ArtistTotalListens {
-  ArtistTotalListens(const string& set_artist, Plays set_plays);
-  string artist;
+  ArtistTotalListens(const std::string& set_artist, Plays set_plays);
+  std::string artist;
   Plays plays;
 };
 
 
 
-vector<SongListen> ParseJson(const vector<json>& songs);
+std::vector<SongListen> ParseJson(const std::vector<nlohmann::json>& songs);
 
-vector<SongTotalListens> SortSongsByMs(const vector<SongListen>& song_listens);
+std::vector<SongTotalListens> SortSongsByMs(const std::vector<SongListen>& song_listens);
 
-vector<ArtistTotalListens> SortArtistsByMs(const vector<SongListen>& song_listens);
+std::vector<ArtistTotalListens> SortArtistsByMs(const std::vector<SongListen>& song_listens);
 
-vector<SongTotalListens> SortSongsByPlays(const vector<SongListen>& song_listens);
+std::vector<SongTotalListens> SortSongsByPlays(const std::vector<SongListen>& song_listens);
 
-vector<ArtistTotalListens> SortArtistsByPlays(const vector<SongListen>& song_listens);
+std::vector<ArtistTotalListens> SortArtistsByPlays(const std::vector<SongListen>& song_listens);
 
-map<Song, Plays> GetSongsToTotalMs(const vector<SongListen>& song_listens);
+std::map<Song, Plays> GetSongsToTotalMs(const std::vector<SongListen>& song_listens);
 
-map<string, Plays> GetArtistToTotalMs(const vector<SongListen>& song_listens);
+std::map<std::string, Plays> GetArtistToTotalMs(const std::vector<SongListen>& song_listens);
 
-vector<vector<SongTotalListens> > GetSortedSongsByArtist(const vector<SongListen>& song_listens);
+std::vector<std::vector<SongTotalListens> > GetSortedSongsByArtist(const std::vector<SongListen>& song_listens);
 
-map<string, vector<SongTotalListens> > MapArtistsToSongs(const vector<SongListen>& song_listens);
+std::map<std::string, std::vector<SongTotalListens> > MapArtistsToSongs(const std::vector<SongListen>& song_listens);
 
 std::ostream& operator<<(std::ostream& os, const SongTotalListens& s);
 

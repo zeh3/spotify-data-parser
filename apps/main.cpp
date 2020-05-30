@@ -12,6 +12,7 @@ using std::cerr;
 using std::endl;
 using std::exception;
 using std::ofstream;
+using json = nlohmann::json;
 
 vector<string> file_paths = {"MyData/StreamingHistory0.json", "MyData/StreamingHistory1.json",
                              "MyData/StreamingHistory2.json", "MyData/StreamingHistory3.json"};
