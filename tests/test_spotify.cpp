@@ -11,7 +11,10 @@ using std::string;
 using std::ifstream;
 using std::cout;
 using std::endl;
+using std::string;
+using std::vector;
 using namespace spotify;
+using json = nlohmann::json;
 
 TEST_CASE("test parsing", "[ParseJson]") {
   string example_file_path = "data/ExampleOneDay.json";

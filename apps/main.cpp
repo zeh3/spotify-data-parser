@@ -12,12 +12,13 @@ using std::cerr;
 using std::endl;
 using std::exception;
 using std::ofstream;
+using json = nlohmann::json;
 
 vector<string> file_paths = {"MyData/StreamingHistory0.json", "MyData/StreamingHistory1.json",
                              "MyData/StreamingHistory2.json", "MyData/StreamingHistory3.json"};
-string top_songs_by_play_time_path = "MyData/TopSongsMs.txt";
+string top_songs_by_play_time_path = "MyData/TopSongsTime.txt";
 string top_songs_by_plays_path = "MyData/TopSongsPlays.txt";
-string top_artists_by_play_time_path = "MyData/TopArtistsMs.txt";
+string top_artists_by_play_time_path = "MyData/TopArtistsTime.txt";
 string top_artists_by_plays_path = "MyData/TopArtistsPlays.txt";
 string artists_breakdown_path = "MyData/ArtistsBreakdown.txt";
 string random_stats_path = "MyData/stats.txt";
@@ -94,6 +95,30 @@ int main() {
     }
     artists_file << endl;
   }
+  
+  ofstream stats_file;
+  stats_file.open(random_stats_path);
+  long ms = 0;
+  int plays = 0;
+  for (const SongTotalListens& song : sorted_songs_ms) {
+    ms += song.plays.milliseconds_listened;
+    plays += song.plays.times_listened;
+  }
+  //3600000 milliseconds in an hour
+  long hr = ms / 3600000;
+  ms = ms - 3600000 * hr;
+  //60000 milliseconds in a minute
+  long min = ms / 60000;
+  ms = ms - 60000 * min;
+  //1000 milliseconds in a second
+  long sec = ms / 1000;
+  ms = ms - 1000 * sec;
+  
+  stats_file << "You've listened to music for" << ": " << hr << " hr, "
+            << min << " min, " << sec << " sec, " << ms << " ms" << endl;
+  stats_file << "And played " << sorted_songs_ms.size() << " songs " << plays << " times" << endl;
+  stats_file << "That's an average of " << plays / sorted_artists_ms.size() << " plays per song" << endl;
+  // for an average of x minutes/plays / song
   
   // let's be real i will need this to debug again at some point
   /*ofstream songs_file;
