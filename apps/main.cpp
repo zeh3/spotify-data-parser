@@ -86,8 +86,10 @@ int main() {
   vector<vector<SongTotalListens> > songs_by_artist = GetSortedSongsByArtist(songs);
   ofstream artists_file;
   artists_file.open(artists_breakdown_path);
+  int artist_rank = 1;
   for (const vector<SongTotalListens>& song_listens: songs_by_artist) {
-    artists_file << "ARTIST: " << song_listens[0].song.artist << endl;
+    artists_file << "#" << artist_rank << " ARTIST: " << song_listens[0].song.artist << endl;
+    artist_rank++;
     i = 1;
     for (const SongTotalListens& song_listen : song_listens) {
       artists_file << i << ": " << song_listen << endl;
