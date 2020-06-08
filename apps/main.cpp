@@ -25,7 +25,7 @@ string random_stats_path = "results/stats.txt";
 
 int main() {
   vector<json> json_songs;
-  
+  // json -> songs
   for (const string& file_path : file_paths) {
     ifstream json_stream(file_path);
     string first;
@@ -47,6 +47,7 @@ int main() {
   }
   vector<SongListen> songs = ParseJson(json_songs);
   
+  // TOP SONGS PLAY TIME
   vector<SongTotalListens> sorted_songs_ms = SortSongsByMs(songs);
   ofstream top_songs_ms_file;
   top_songs_ms_file.open(top_songs_by_play_time_path);
@@ -56,6 +57,7 @@ int main() {
     i++;
   }
   
+  // TOP SONGS PLAYS
   vector<SongTotalListens> sorted_songs_plays = SortSongsByPlays(songs);
   ofstream top_songs_plays_file;
   top_songs_plays_file.open(top_songs_by_plays_path);
@@ -65,6 +67,7 @@ int main() {
     i++;
   }
   
+  // TOP ARTISTS PLAY TIME
   vector<ArtistTotalListens> sorted_artists_ms = SortArtistsByMs(songs);
   ofstream top_artists_ms_file;
   top_artists_ms_file.open(top_artists_by_play_time_path);
@@ -74,6 +77,7 @@ int main() {
     i++;
   }
   
+  // TOP ARTISTS PLAYS
   vector<ArtistTotalListens> sorted_artists_plays = SortArtistsByPlays(songs);
   ofstream top_artists_plays_file;
   top_artists_plays_file.open(top_artists_by_plays_path);
@@ -83,6 +87,7 @@ int main() {
     i++;
   }
   
+  // ARTISTS BREAKDOWN
   vector<vector<SongTotalListens> > songs_by_artist = GetSortedSongsByArtist(songs);
   ofstream artists_file;
   artists_file.open(artists_breakdown_path);
@@ -98,6 +103,7 @@ int main() {
     artists_file << endl;
   }
   
+  // RANDOM STATS
   ofstream stats_file;
   stats_file.open(random_stats_path);
   long ms = 0;
