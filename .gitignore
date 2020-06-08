@@ -1,3 +1,9 @@
 # Project exclude paths
 /cmake-build-debug/
 /MyData/
+/results/ArtistsBreakdown.txt
+/results/stats.txt
+/results/TopArtistsPlays.txt
+/results/TopArtistsTime.txt
+/results/TopSongsPlays.txt
+/results/TopSongsTime.txt

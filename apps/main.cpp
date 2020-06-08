@@ -16,12 +16,12 @@ using json = nlohmann::json;
 
 vector<string> file_paths = {"MyData/StreamingHistory0.json", "MyData/StreamingHistory1.json",
                              "MyData/StreamingHistory2.json", "MyData/StreamingHistory3.json"};
-string top_songs_by_play_time_path = "MyData/TopSongsTime.txt";
-string top_songs_by_plays_path = "MyData/TopSongsPlays.txt";
-string top_artists_by_play_time_path = "MyData/TopArtistsTime.txt";
-string top_artists_by_plays_path = "MyData/TopArtistsPlays.txt";
-string artists_breakdown_path = "MyData/ArtistsBreakdown.txt";
-string random_stats_path = "MyData/stats.txt";
+string top_songs_by_play_time_path = "results/TopSongsTime.txt";
+string top_songs_by_plays_path = "results/TopSongsPlays.txt";
+string top_artists_by_play_time_path = "results/TopArtistsTime.txt";
+string top_artists_by_plays_path = "results/TopArtistsPlays.txt";
+string artists_breakdown_path = "results/ArtistsBreakdown.txt";
+string random_stats_path = "results/stats.txt";
 
 int main() {
   vector<json> json_songs;
