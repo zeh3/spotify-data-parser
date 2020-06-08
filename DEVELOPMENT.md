@@ -28,3 +28,6 @@
    
 #### 5/30/2020
    - added some stats to stats.txt
+
+#### 6/8/2020
+   - some cleanup
