@@ -51,40 +51,40 @@ int main() {
   vector<SongTotalListens> sorted_songs_ms = SortSongsByMs(songs);
   ofstream top_songs_ms_file;
   top_songs_ms_file.open(top_songs_by_play_time_path);
-  int i = 1;
+  int rank = 1;
   for (const SongTotalListens& song : sorted_songs_ms) {
-    top_songs_ms_file << i << ": " << song << endl;
-    i++;
+    top_songs_ms_file << rank << ": " << song << endl;
+    rank++;
   }
   
   // TOP SONGS PLAYS
   vector<SongTotalListens> sorted_songs_plays = SortSongsByPlays(songs);
   ofstream top_songs_plays_file;
   top_songs_plays_file.open(top_songs_by_plays_path);
-  i = 1;
+  rank = 1;
   for (const SongTotalListens& song : sorted_songs_plays) {
-    top_songs_plays_file << i << ": " << song.song << ": " << song.plays.times_listened << endl;
-    i++;
+    top_songs_plays_file << rank << ": " << song.song << ": " << song.plays.times_listened << endl;
+    rank++;
   }
   
   // TOP ARTISTS PLAY TIME
   vector<ArtistTotalListens> sorted_artists_ms = SortArtistsByMs(songs);
   ofstream top_artists_ms_file;
   top_artists_ms_file.open(top_artists_by_play_time_path);
-  i = 1;
+  rank = 1;
   for (const ArtistTotalListens& artist : sorted_artists_ms) {
-    top_artists_ms_file << i << ": " << artist << endl;
-    i++;
+    top_artists_ms_file << rank << ": " << artist << endl;
+    rank++;
   }
   
   // TOP ARTISTS PLAYS
   vector<ArtistTotalListens> sorted_artists_plays = SortArtistsByPlays(songs);
   ofstream top_artists_plays_file;
   top_artists_plays_file.open(top_artists_by_plays_path);
-  i = 1;
+  rank = 1;
   for (const ArtistTotalListens& artist : sorted_artists_plays) {
-    top_artists_plays_file << i << ": " << artist.artist << ": " << artist.plays.times_listened << endl;
-    i++;
+    top_artists_plays_file << rank << ": " << artist.artist << ": " << artist.plays.times_listened << endl;
+    rank++;
   }
   
   // ARTISTS BREAKDOWN
@@ -95,10 +95,10 @@ int main() {
   for (const vector<SongTotalListens>& song_listens: songs_by_artist) {
     artists_file << "#" << artist_rank << " ARTIST: " << song_listens[0].song.artist << endl;
     artist_rank++;
-    i = 1;
+    rank = 1;
     for (const SongTotalListens& song_listen : song_listens) {
-      artists_file << i << ": " << song_listen << endl;
-      i++;
+      artists_file << rank << ": " << song_listen << endl;
+      rank++;
     }
     artists_file << endl;
   }
