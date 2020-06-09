@@ -7,7 +7,7 @@ Parses downloaded spotify data to produce a few interesting lists. Like spotify 
 - move that folder into the top level directory of your project
 - My spotify data had 4 StreamingHistory.json files- yours might have a different number, so adjust the file_paths vector in main.cpp as necessary
 - compile and run the program
-- your stats should appear in these files in your results folder: TopSongsTime.txt, TopSongsPlays.txt, TopArtistsTime.txt, TopArtistsPlays.txt, stats.txt
+- your stats should appear in these files in your results folder: AristsBreakdown.md, TopSongsTime.txt, TopSongsPlays.txt, TopArtistsTime.txt, TopArtistsPlays.txt, stats.txt
 - feel free to shoot me an email or make an issue if you run into any problems
 
 ## current features:
