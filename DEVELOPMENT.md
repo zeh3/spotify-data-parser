@@ -12,7 +12,7 @@
    - laying groundwork for SortSongsByMs which intimidates me
     
 #### 5/25/2020
-   - basic test cases so I know it's not completely broken\
+   - basic test cases so I know it's not completely broken
    - more groundwork
     
 #### 5/27/2020
@@ -30,4 +30,4 @@
    - added some stats to stats.txt
 
 #### 6/8/2020
-   - some cleanup
+   - some cleanup and general improvements
