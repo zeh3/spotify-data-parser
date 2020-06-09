@@ -129,6 +129,8 @@ int main() {
         (double) artist.plays.milliseconds_listened * 100;
       double percent_total = (double) song_listen.plays.milliseconds_listened / (double) ms_total * 100;
       artists_file << rank << ": " << song_listen << "\\" << endl;
+      // https://stackoverflow.com/questions/15721373/how-do-i-ensure-that-whitespace-is-preserved-in-markdown#:~:text=Use%20non%2Dbreaking%20spaces,line%20break%20at%20its%20position%22.
+      // thanks again stack overflow
       artists_file << "&nbsp; &nbsp; &nbsp;" << percent_artist
         << "% of the time you've spent listening to this artist" << "\\" << endl;
       artists_file << "&nbsp; &nbsp; &nbsp;" << percent_total
