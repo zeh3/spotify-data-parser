@@ -87,33 +87,16 @@ int main() {
     rank++;
   }
   
-  // ARTISTS BREAKDOWN
-  vector<vector<SongTotalListens> > songs_by_artist = GetSortedSongsByArtist(songs);
-  ofstream artists_file;
-  artists_file.open(artists_breakdown_path);
-  int artist_rank = 1;
-  for (int i = 0; i < songs_by_artist.size(); i++) {
-    vector<SongTotalListens> song_listens = songs_by_artist[i];
-    ArtistTotalListens artist = sorted_artists_ms[i];
-    artists_file << "# " << artist_rank << ": " << artist << endl;
-    artist_rank++;
-    rank = 1;
-    for (const SongTotalListens& song_listen : song_listens) {
-      artists_file << rank << ": " << song_listen << "\\" << endl;
-      rank++;
-    }
-    artists_file << endl;
-  }
-  
   // RANDOM STATS
   ofstream stats_file;
   stats_file.open(random_stats_path);
-  long ms = 0;
+  long ms_total = 0;
   int plays = 0;
   for (const SongTotalListens& song : sorted_songs_ms) {
-    ms += song.plays.milliseconds_listened;
+    ms_total += song.plays.milliseconds_listened;
     plays += song.plays.times_listened;
   }
+  long ms = ms_total;
   //3600000 milliseconds in an hour
   long hr = ms / 3600000;
   ms = ms - 3600000 * hr;
@@ -129,6 +112,31 @@ int main() {
   stats_file << "And played " << sorted_songs_ms.size() << " songs " << plays << " times" << endl;
   stats_file << "That's an average of " << plays / sorted_artists_ms.size() << " plays per song" << endl;
   // for an average of x minutes/plays / song
+  
+  // ARTISTS BREAKDOWN
+  vector<vector<SongTotalListens> > songs_by_artist = GetSortedSongsByArtist(songs);
+  ofstream artists_file;
+  artists_file.open(artists_breakdown_path);
+  int artist_rank = 1;
+  for (int i = 0; i < songs_by_artist.size(); i++) {
+    vector<SongTotalListens> song_listens = songs_by_artist[i];
+    ArtistTotalListens artist = sorted_artists_ms[i];
+    artists_file << "# " << artist_rank << ": " << artist << endl;
+    artist_rank++;
+    rank = 1;
+    for (const SongTotalListens& song_listen : song_listens) {
+      double percent_artist = (double) song_listen.plays.milliseconds_listened /
+        (double) artist.plays.milliseconds_listened * 100;
+      double percent_total = (double) song_listen.plays.milliseconds_listened / (double) ms_total * 100;
+      artists_file << rank << ": " << song_listen << "\\" << endl;
+      artists_file << "&nbsp; &nbsp; &nbsp;" << percent_artist
+        << "% of the time you've spent listening to this artist" << "\\" << endl;
+      artists_file << "&nbsp; &nbsp; &nbsp;" << percent_total
+        << "% of the time you've spent listening to all your music" << "\\" << endl;
+      rank++;
+    }
+    artists_file << endl;
+  }
   
   // let's be real i will need this to debug again at some point
   /*ofstream songs_file;
