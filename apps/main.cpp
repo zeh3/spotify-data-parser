@@ -20,7 +20,7 @@ const string top_songs_by_play_time_path = "results/TopSongsTime.txt";
 const string top_songs_by_plays_path = "results/TopSongsPlays.txt";
 const string top_artists_by_play_time_path = "results/TopArtistsTime.txt";
 const string top_artists_by_plays_path = "results/TopArtistsPlays.txt";
-const string artists_breakdown_path = "results/ArtistsBreakdown.txt";
+const string artists_breakdown_path = "results/ArtistsBreakdown.md";
 const string random_stats_path = "results/stats.txt";
 
 int main() {
@@ -92,12 +92,14 @@ int main() {
   ofstream artists_file;
   artists_file.open(artists_breakdown_path);
   int artist_rank = 1;
-  for (const vector<SongTotalListens>& song_listens: songs_by_artist) {
-    artists_file << "#" << artist_rank << " ARTIST: " << song_listens[0].song.artist << endl;
+  for (int i = 0; i < songs_by_artist.size(); i++) {
+    vector<SongTotalListens> song_listens = songs_by_artist[i];
+    ArtistTotalListens artist = sorted_artists_ms[i];
+    artists_file << "# " << artist_rank << ": " << artist << endl;
     artist_rank++;
     rank = 1;
     for (const SongTotalListens& song_listen : song_listens) {
-      artists_file << rank << ": " << song_listen << endl;
+      artists_file << rank << ": " << song_listen << "\\" << endl;
       rank++;
     }
     artists_file << endl;
