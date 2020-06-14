@@ -107,10 +107,15 @@ int main() {
   long sec = ms / 1000;
   ms = ms - 1000 * sec;
   
-  stats_file << "You've listened to music for" << ": " << hr << " hr, "
+  int total_songs = sorted_songs_ms.size();
+  int total_artists = sorted_artists_ms.size();
+  
+  stats_file << "This past year you've listened to music for" << ": " << hr << " hr, "
             << min << " min, " << sec << " sec, " << ms << " ms" << endl;
-  stats_file << "And played " << sorted_songs_ms.size() << " songs " << plays << " times" << endl;
-  stats_file << "That's an average of " << plays / sorted_artists_ms.size() << " plays per song" << endl;
+  stats_file << "(That's " << hr * 60 + min << " minutes if you want to compare to your spotify wrapped)" << endl;
+  stats_file << "You've played " << total_songs << " songs " << plays << " times, and you've listened to "
+            << total_artists << " artists, " << "for an average of "<< plays / sorted_artists_ms.size()
+            << " plays per song and " << total_songs / total_artists << " songs per artist." << endl;
   // for an average of x minutes/plays / song
   
   // ARTISTS BREAKDOWN
