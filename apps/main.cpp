@@ -12,6 +12,7 @@ using std::cerr;
 using std::endl;
 using std::exception;
 using std::ofstream;
+using std::sort;
 using json = nlohmann::json;
 
 const vector<string> file_paths = {"MyData/StreamingHistory0.json", "MyData/StreamingHistory1.json",
@@ -20,6 +21,7 @@ const string top_songs_by_play_time_path = "results/TopSongsTime.txt";
 const string top_songs_by_plays_path = "results/TopSongsPlays.txt";
 const string top_artists_by_play_time_path = "results/TopArtistsTime.txt";
 const string top_artists_by_plays_path = "results/TopArtistsPlays.txt";
+const string top_artists_by_songs_path = "results/TopArtistsSongs.txt";
 const string artists_breakdown_path = "results/ArtistsBreakdown.md";
 const string random_stats_path = "results/stats.txt";
 
@@ -143,6 +145,19 @@ int main() {
       rank++;
     }
     artists_file << endl;
+  }
+  
+  // TOP ARTISTS BY SONGS
+  sort(songs_by_artist.begin(), songs_by_artist.end(),
+    [](const vector<SongTotalListens>& lhs, const vector<SongTotalListens>& rhs) {
+    return lhs.size() > rhs.size();
+  });
+  ofstream artists_by_songs_file;
+  artists_by_songs_file.open(top_artists_by_songs_path);
+  artist_rank = 1;
+  for (const vector<SongTotalListens>& songs: songs_by_artist) {
+    artists_by_songs_file << artist_rank << ": " << songs[0].song.artist << " (" << songs.size() << " songs)" << endl;
+    artist_rank++;
   }
   
   // let's be real i will need this to debug again at some point
