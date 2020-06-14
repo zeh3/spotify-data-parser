@@ -3,6 +3,7 @@ Parses downloaded spotify data to produce a few interesting lists. Like spotify 
 
 ## If you would like to use it
 - clone the repo
+- [request a copy of your spotify data](https://www.spotify.com/uk/account/privacy/)
 - download and unzip your spotify data (it'll take a few days for spotify to send you your data) into a folder that should be called "MyData" 
 - move that folder into the top level directory of your project
 - My spotify data had 4 StreamingHistory.json files- yours might have a different number, so adjust the file_paths vector in main.cpp as necessary
