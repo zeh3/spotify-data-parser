@@ -92,18 +92,18 @@ int main() {
   // RANDOM STATS
   ofstream stats_file;
   stats_file.open(random_stats_path);
-  long sec_total = 0;
+  unsigned long sec_total = 0;
   int plays = 0;
   for (const SongTotalListens& song : sorted_songs_ms) {
     sec_total += song.plays.seconds_listened;
     plays += song.plays.times_listened;
   }
-  long sec = sec_total;
+  unsigned long sec = sec_total;
   //3600 seconds in an hour
-  long hr = sec / 3600;
+  unsigned long hr = sec / 3600;
   sec = sec - 3600 * hr;
   //60 seconds in a minute
-  long min = sec / 60;
+  unsigned long min = sec / 60;
   sec = sec - 60 * min;
   
   int total_songs = sorted_songs_ms.size();
