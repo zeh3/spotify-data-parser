@@ -50,7 +50,7 @@ int main() {
   vector<SongListen> songs = ParseJson(json_songs);
   
   // TOP SONGS PLAY TIME
-  vector<SongTotalListens> sorted_songs_ms = SortSongsByMs(songs);
+  vector<SongTotalListens> sorted_songs_ms = SortSongsByTime(songs);
   ofstream top_songs_ms_file;
   top_songs_ms_file.open(top_songs_by_play_time_path);
   int rank = 1;
@@ -70,7 +70,7 @@ int main() {
   }
   
   // TOP ARTISTS PLAY TIME
-  vector<ArtistTotalListens> sorted_artists_ms = SortArtistsByMs(songs);
+  vector<ArtistTotalListens> sorted_artists_ms = SortArtistsByTime(songs);
   ofstream top_artists_ms_file;
   top_artists_ms_file.open(top_artists_by_play_time_path);
   rank = 1;
@@ -92,28 +92,25 @@ int main() {
   // RANDOM STATS
   ofstream stats_file;
   stats_file.open(random_stats_path);
-  long ms_total = 0;
+  long sec_total = 0;
   int plays = 0;
   for (const SongTotalListens& song : sorted_songs_ms) {
-    ms_total += song.plays.milliseconds_listened;
+    sec_total += song.plays.seconds_listened;
     plays += song.plays.times_listened;
   }
-  long ms = ms_total;
-  //3600000 milliseconds in an hour
-  long hr = ms / 3600000;
-  ms = ms - 3600000 * hr;
-  //60000 milliseconds in a minute
-  long min = ms / 60000;
-  ms = ms - 60000 * min;
-  //1000 milliseconds in a second
-  long sec = ms / 1000;
-  ms = ms - 1000 * sec;
+  long sec = sec_total;
+  //3600 seconds in an hour
+  long hr = sec / 3600;
+  sec = sec - 3600 * hr;
+  //60 seconds in a minute
+  long min = sec / 60;
+  sec = sec - 60 * min;
   
   int total_songs = sorted_songs_ms.size();
   int total_artists = sorted_artists_ms.size();
   
   stats_file << "This past year you've listened to music for" << ": " << hr << " hr, "
-            << min << " min, " << sec << " sec, " << ms << " ms" << endl;
+            << min << " min, " << sec << " sec" << endl;
   stats_file << "(That's " << hr * 60 + min << " minutes if you want to compare to your spotify wrapped)" << endl;
   stats_file << "You've played " << total_songs << " songs " << plays << " times, and you've listened to "
             << total_artists << " artists, " << "for an average of "<< plays / sorted_artists_ms.size()
@@ -132,9 +129,9 @@ int main() {
     artist_rank++;
     rank = 1;
     for (const SongTotalListens& song_listen : song_listens) {
-      double percent_artist = (double) song_listen.plays.milliseconds_listened /
-        (double) artist.plays.milliseconds_listened * 100;
-      double percent_total = (double) song_listen.plays.milliseconds_listened / (double) ms_total * 100;
+      double percent_artist = (double) song_listen.plays.seconds_listened /
+                              (double) artist.plays.seconds_listened * 100;
+      double percent_total = (double) song_listen.plays.seconds_listened / (double) sec_total * 100;
       artists_file << rank << ": " << song_listen << "\\" << endl;
       // https://stackoverflow.com/questions/15721373/how-do-i-ensure-that-whitespace-is-preserved-in-markdown#:~:text=Use%20non%2Dbreaking%20spaces,line%20break%20at%20its%20position%22.
       // thanks again stack overflow
@@ -159,6 +156,8 @@ int main() {
     artists_by_songs_file << artist_rank << ": " << songs[0].song.artist << " (" << songs.size() << " songs)" << endl;
     artist_rank++;
   }
+  
+  std::cout << "Your files are ready! Check the results folder." << endl;
   
   // let's be real i will need this to debug again at some point
   /*ofstream songs_file;

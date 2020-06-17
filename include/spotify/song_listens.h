@@ -23,9 +23,9 @@ struct Song {
 };
 
 struct Plays {
-  Plays(long set_ms, int set_times);
+  Plays(long set_sec, int set_times);
   Plays();
-  long milliseconds_listened;
+  long seconds_listened;
   int times_listened;
 };
 
@@ -56,17 +56,17 @@ struct ArtistTotalListens {
 
 std::vector<SongListen> ParseJson(const std::vector<nlohmann::json>& songs);
 
-std::vector<SongTotalListens> SortSongsByMs(const std::vector<SongListen>& song_listens);
+std::vector<SongTotalListens> SortSongsByTime(const std::vector<SongListen>& song_listens);
 
-std::vector<ArtistTotalListens> SortArtistsByMs(const std::vector<SongListen>& song_listens);
+std::vector<ArtistTotalListens> SortArtistsByTime(const std::vector<SongListen>& song_listens);
 
 std::vector<SongTotalListens> SortSongsByPlays(const std::vector<SongListen>& song_listens);
 
 std::vector<ArtistTotalListens> SortArtistsByPlays(const std::vector<SongListen>& song_listens);
 
-std::map<Song, Plays> GetSongsToTotalMs(const std::vector<SongListen>& song_listens);
+std::map<Song, Plays> GetSongsToTotalSec(const std::vector<SongListen>& song_listens);
 
-std::map<std::string, Plays> GetArtistToTotalMs(const std::vector<SongListen>& song_listens);
+std::map<std::string, Plays> GetArtistToTotalSec(const std::vector<SongListen>& song_listens);
 
 std::vector<std::vector<SongTotalListens> > GetSortedSongsByArtist(const std::vector<SongListen>& song_listens);
 
