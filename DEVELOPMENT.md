@@ -9,14 +9,14 @@
 #### 5/23/2020
    - finish main.cpp
    - finish example json for testing
-   - laying groundwork for SortSongsByMs which intimidates me
+   - laying groundwork for SortSongsByTime which intimidates me
     
 #### 5/25/2020
    - basic test cases so I know it's not completely broken
    - more groundwork
     
 #### 5/27/2020
-   - finished SortSongsByMs
+   - finished SortSongsByTime
    - performance improvements
    - sorts artists
     
@@ -31,3 +31,6 @@
 
 #### 6/8/2020
    - some cleanup and general improvements
+   
+#### 6/17/2020
+   - one of my friends managed to do integer overflow. I congratulated him on the sheer amount of music he listens to and then made some changes so that everything deals with seconds instead of milliseconds. I don't think it's even possible to listen to enough music in a year to break it now?
