@@ -34,3 +34,4 @@
    
 #### 6/17/2020
    - one of my friends managed to do integer overflow. I congratulated him on the sheer amount of music he listens to and then made some changes so that everything deals with seconds instead of milliseconds. I don't think it's even possible to listen to enough music in a year to break it now?
+   - getting it set up sucked though, I'm rewriting this as a python script whenever I feel motivated to lol
